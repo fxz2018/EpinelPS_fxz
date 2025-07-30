@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build-epinelps",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -11,22 +11,66 @@
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": "build"
         },
         {
-            "label": "publish",
+            "label": "build-serverselector",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/ServerSelector.Desktop/ServerSelector.Desktop.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "build-all",
+            "dependsOrder": "parallel",
+            "dependsOn": [
+                "build-epinelps",
+                "build-serverselector"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "publish-epinelps",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "publish",
                 "${workspaceFolder}/EpinelPS/EpinelPS.csproj",
+                "--configuration",
+                "Release",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": "build"
         },
         {
-            "label": "watch",
+            "label": "publish-serverselector",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/ServerSelector.Desktop/ServerSelector.Desktop.csproj",
+                "--configuration",
+                "Release",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "watch-epinelps",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -35,7 +79,19 @@
                 "--project",
                 "${workspaceFolder}/EpinelPS/EpinelPS.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "clean",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "${workspaceFolder}/EpinelPS.sln"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
         }
     ]
 }
