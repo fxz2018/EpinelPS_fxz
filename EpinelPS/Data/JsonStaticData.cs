@@ -731,9 +731,23 @@ namespace EpinelPS.Data
     public partial class MessengerMsgConditionRecord
     {
         public int id;
+        public List<MessengerConditionTriggerList> trigger_list = [];
+        public string message_type = "";
         public string tid = "";
+        public int resource_id;
+        public int stamina_value;
         public int reward_id;
     }
+
+    [MemoryPackable]
+    public partial class MessengerConditionTriggerList
+    {
+        public string trigger = "";
+        public int condition_id;
+        public int condition_value;
+    }
+
+
     public enum ScenarioRewardCondition
     {
         MainScenario,
